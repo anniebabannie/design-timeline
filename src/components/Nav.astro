@@ -1,0 +1,14 @@
+---
+import { supabase } from "../lib/supabase"
+const { data: { user } } = await supabase.auth.getUser()
+---
+
+<nav>
+  {user &&
+    <div>Logged in as: {user.email}</div>
+    <a href="/api/auth/signout">Sign out</a>
+  }
+  {!user &&
+    <a href="/signin">Sign in</a>
+  }
+</nav>

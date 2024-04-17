@@ -1,0 +1,14 @@
+---
+import { Image } from "astro:assets";
+import image from "../images/rococo-interior-design.jpg";
+import type { Tables } from "../../types/supabase";
+
+const { style } = Astro.props;
+---
+
+<h2>{style.name}</h2>
+<div>{style.start_year} - {style.end_year}</div>
+<p>
+  {style.description}
+</p>
+<Image src={image} alt="A History of Interior Design" />

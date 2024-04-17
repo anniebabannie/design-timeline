@@ -1,0 +1,20 @@
+---
+import Nav from "../../components/Nav.astro";
+import Layout from "../../layouts/Layout.astro";
+
+---
+<Layout title="Add a new style">
+  <Nav/>
+  <h1>Add a new design style</h1>
+  <form action="/api/styles/create" method="post">
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" value="Mid-century modern" />
+    <label for="start_year">Start Year</label>
+    <input type="text" name="start_year" id="start_year" value="2010"/>
+    <label for="end_year">End Year</label>
+    <input type="text" name="end_year" id="end_year" value="2020"/>
+    <label for="description">Description</label>
+    <textarea name="description" id="description">saDFKJASDLFKJA SDFKL</textarea>
+    <button type="submit">Add style</button>
+  </form>
+</Layout>
