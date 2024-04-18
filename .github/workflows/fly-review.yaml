@@ -13,6 +13,7 @@ env:
 jobs:
   review_app:
     runs-on: ubuntu-latest
+    permissions: write-all
     outputs:
       url: ${{ steps.deploy.outputs.url }}
     # Only run one deployment at a time per PR.
@@ -25,9 +26,6 @@ jobs:
       name: pr-${{ github.event.number }}
       # The script in the `deploy` sets the URL output for each review app.
       url: ${{ steps.deploy.outputs.url }}
-
-    permissions:
-      deployments: write
 
     steps:
       - name: Get code
