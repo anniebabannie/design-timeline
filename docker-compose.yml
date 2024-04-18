@@ -1,0 +1,11 @@
+version: "3.8" # this the version of Docker Compose
+services:
+  app:
+    build:
+      context: ./ 
+    # command: npm run dev
+    ports:
+      - '4321:4321'
+    volumes:
+      - ${APP_DIR}:/app
+      - /app/node_modules
