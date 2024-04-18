@@ -26,6 +26,9 @@ jobs:
       # The script in the `deploy` sets the URL output for each review app.
       url: ${{ steps.deploy.outputs.url }}
 
+    permissions:
+      deployments: write
+
     steps:
       - name: Get code
         uses: actions/checkout@v4
@@ -35,7 +38,7 @@ jobs:
         uses: superfly/fly-pr-review-apps@1.2.0
         with:
           secrets: SUPABASE_URL=${{secrets.SUPABASE_URL}} SUPABASE_ANON_KEY=${{secrets.SUPABASE_ANON_KEY}}
-          
+
       - name: Clean up GitHub environment
         uses: strumwolf/delete-deployment-environment@v2
         if: ${{ github.event.action == 'closed' }}
