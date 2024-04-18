@@ -1,0 +1,1 @@
+alter table "public"."styles" drop column "image";
