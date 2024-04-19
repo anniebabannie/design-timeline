@@ -36,12 +36,12 @@ jobs:
         uses: superfly/fly-pr-review-apps@1.2.0
         with:
           secrets: SUPABASE_URL=${{secrets.SUPABASE_URL}} SUPABASE_ANON_KEY=${{secrets.SUPABASE_ANON_KEY}}
-          
+
       - name: 🗑 Delete deployment environment
         uses: strumwolf/delete-deployment-environment@v2.2.3
         if: ${{ github.event.action == 'closed' }}
         with:
-          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          token: ${{ secrets.GH_APP_SECRET }}
           environment: pr-${{ github.event.number }}
 
       # - name: Clean up GitHub environment
