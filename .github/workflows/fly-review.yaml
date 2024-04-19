@@ -38,9 +38,13 @@ jobs:
           secrets: SUPABASE_URL=${{secrets.SUPABASE_URL}} SUPABASE_ANON_KEY=${{secrets.SUPABASE_ANON_KEY}}
 
       - name: Clean up GitHub environment
-        uses: strumwolf/delete-deployment-environment@v2
-        if: ${{ github.event.action == 'closed' }}
-        with:
-          # ⚠️ The provided token needs permission for admin write:org
-          token: ${{ secrets.GH_ACCESS_TOKEN }}
-          environment: pr-${{ github.event.number }}
+      # if: ${{ github.event.action == 'closed' }}
+        run: |
+          echo "Cleaning up environment..."
+          curl -X DELETE -H "Authorization: token ${{ secrets.GH_ACCESS_TOKEN }}" "https://api.github.com/repos/${{github.repository}}/environments/pr-${{ github.event.number }}"
+          echo "Environment cleaned up."
+        # uses: strumwolf/delete-deployment-environment@v2
+        # with:
+        #   # ⚠️ The provided token needs permission for admin write:org
+        #   token: ${{ secrets.GH_ACCESS_TOKEN }}
+        #   environment: pr-${{ github.event.number }}
