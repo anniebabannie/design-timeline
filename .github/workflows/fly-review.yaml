@@ -36,13 +36,22 @@ jobs:
         uses: superfly/fly-pr-review-apps@1.2.0
         with:
           secrets: SUPABASE_URL=${{secrets.SUPABASE_URL}} SUPABASE_ANON_KEY=${{secrets.SUPABASE_ANON_KEY}}
+      
+      - name: Get GH App token
+        uses: actions/create-github-app-token@v1
+        if: ${{ github.event.action == 'closed' }}
+        id: get-token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
 
       - name: 🗑 Delete deployment environment
         uses: strumwolf/delete-deployment-environment@v2.2.3
         if: ${{ github.event.action == 'closed' }}
         with:
-          token: ${{ secrets.GH_APP_SECRET }}
+          token: ${{ steps.get-token.outputs.token }}
           environment: pr-${{ github.event.number }}
+          ref: ${{ github.ref_name }}
 
       # - name: Clean up GitHub environment
       #   if: ${{ github.event.action == 'closed' }}
