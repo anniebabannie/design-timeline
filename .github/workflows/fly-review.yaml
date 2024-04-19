@@ -38,6 +38,7 @@ jobs:
           secrets: SUPABASE_URL=${{secrets.SUPABASE_URL}} SUPABASE_ANON_KEY=${{secrets.SUPABASE_ANON_KEY}}
       
       - name: Clean up environment
+        if: github.event.action == 'closed'
         run: |
           gh api \
           --method DELETE \
